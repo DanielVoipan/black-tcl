@@ -1,0 +1,1 @@
+Project that contains TCL scripts for Eggdrops @ IRC.
