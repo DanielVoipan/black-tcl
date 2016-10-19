@@ -1,4 +1,4 @@
-#####################################################
+###########################################################
 #
 #	Youtube Title 1.5
 #
@@ -10,7 +10,9 @@
 #Este nevoie de tcl-ul http.tcl sa fie incarcat inainte
 #de YoutubeTitle.tcl
 #			BLaCkShaDoW ProductionS
-#####################################################
+#
+#  Sponsored by ForceSP - The Next Generation Hosting -
+#########################################################
 
 
 
