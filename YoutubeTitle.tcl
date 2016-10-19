@@ -55,14 +55,18 @@ proc youtube:get:title {link nick chan} {
 	set output [split $getipq "\n"]
 	http::cleanup $ipq
 
-set title [string map { "&amp;" "&"
+	set title [string map { "&amp;" "&"
 			"&#39;" "'"
 			"&quot;" "\""
 	
 } [lindex $output 0]]
+	set views [lindex $output 1]
+	set likes [lindex $output 2]
+	set dontlike [lindex $output 3]
+	set views [string map {" " ""} $views]
 
 
-	puthelp "PRIVMSG $chan :\002\0031,0You\0030,4Tube\003\002 : $title"
+	puthelp "PRIVMSG $chan :\002\0031,0You\0030,4Tube\003\002 : $title ; Views \002$views\002 ; Likes \002$likes\002 ; DontLike \002$dontlike\002"
 }
 
 proc check:youtube:me {nick host hand chan keyword arg} {
