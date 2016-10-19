@@ -67,4 +67,4 @@ proc check:youtube:me {nick host hand chan keyword arg} {
 check:youtube $nick $host $hand $chan $arg
 }
 
-putlog "Youtube Title 1.4 by BLaCkShaDoW Loaded"
+putlog "Youtube Title 1.5 by BLaCkShaDoW Loaded"
