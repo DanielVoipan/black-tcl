@@ -68,7 +68,7 @@ proc youtube:get:title {link nick chan} {
 	} $views]
 
 
-	puthelp "PRIVMSG $chan :\002\0031,0You\0030,4Tube\003\002 : $title ; Views: \002$views\002 | Likes: \002$likes %\002 | Don'tLike: \002$dontlike %\002"
+	puthelp "PRIVMSG $chan :\002\0031,0You\0030,4Tube\003\002 :\0032 $title\003 | Views:\0034 $views\003 | Like:\0034 $likes %\003 | DisLIKE:\0034 $dontlike %\003"
 }
 
 proc check:youtube:me {nick host hand chan keyword arg} {
