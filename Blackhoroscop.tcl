@@ -44,7 +44,7 @@ if {![channel get $chan horoscop]} {
 }
 
 if {[string equal -nocase "version" $alege_zodie]} {
-	puthelp "NOTICE $nick :Versiune script 4Horoscop 1.2 creat de BLaCkShaDoW. Pentru mai multe informatii 4#Tcl-Help sau 4WwW.TclScripts.Net"
+	puthelp "NOTICE $nick :Versiune script 4Horoscop 1.3 creat de BLaCkShaDoW. Pentru mai multe informatii 4#Tcl-Help sau 4WwW.TclScripts.Net"
 	return 0
 }
 
