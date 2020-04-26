@@ -1,6 +1,6 @@
 ###################################################################################
 #
-# BlackCountry 1.0
+# BlackCountry 1.1
 ##
 #Scriptul va bana pe cei a caror ipuri se afla in locatiile(tarile) adaugate
 #in script.
@@ -17,6 +17,11 @@
 #						BLaCkShaDoW ProductionS
 ###################################################################################
 
+#Flaguri necesare pentru adaugare
+
+set blackcountry(add_flags) "nm|-"
+
+
 #Aici setezi mesajul predefinit de ban
 
 set blackcountry(breason) "Locatia ta este una interzisa pe acest canal. Locatia este :%location%"
@@ -25,10 +30,23 @@ set blackcountry(breason) "Locatia ta este una interzisa pe acest canal. Locatia
 
 set blackcountry(btime) "120"
 
+##
+#Tip masca de ban
+#1 - *!*@$host
+#2 - *!$ident@$host
+#3 - $user!$ident@$host
+#4 - $user!*@*
+#5 - *!$ident@*
+set blackcountry(banmask_type) "1"
+
+
 ###################################################################################
 
-bind pub mn|- !country blackcountry:cmd
+bind pub $blackcountry(add_flags) !country blackcountry:cmd
+
+
 bind join - * blackcountry:join
+
 setudef flag bcountry
 set blackcountry(file) "country_list.txt"
 
@@ -150,20 +168,41 @@ if {$data == ""} {
 }
 
 
+
+proc blackcountry:get_host {nick host ident} {
+	global blackcountry
+switch $blackcountry(banmask_type) {
+
+1 {
+	return "*!*@$host"
+}
+2 {
+	return "*!$ident@$host"
+}
+3 {
+	return "$nick!$ident@$host"
+}
+4 {
+	return "$nick!*@*"
+}
+5 {
+	return "*!$ident@*"
+		}
+	}
+}
+
 proc blackcountry:join {nick host hand chan } {
 	global blackcountry
 
 	set handle [nick2hand $nick]
+	set ident [lindex [split $host @] 0]
 	set hostname [lindex [split $host @] 1]
-
 if {![validchan $chan]} { return }
 if {![channel get $chan bcountry]} { return }
 if {[isbotnick $nick]} { return }
 if {![botisop $chan]} { return }
 if {[string match -nocase "*undernet.org" $host]} { return}
 if {[matchattr $handle "nm|oHPASMVO" $chan]} { return }
-
-
 	set execution [exec geoiplookup $hostname]
 	set execution [split $execution "\n"]
 	set split_execution [split [lindex $execution 0] ","]
@@ -184,7 +223,7 @@ if {[string equal -nocase $read_location $short_location] || [string match -noca
 
 	set replace(%location%) $read_location
 	set reason [string map [array get replace] $blackcountry(breason)]
-	set banmask "*!*@[lindex [split $host @] 1]"
+	set banmask [blackcountry:get_host $nick $hostname $ident]
 	newchanban $chan $banmask "BlackCountry" $reason $blackcountry(btime)
 			}
 		}
@@ -192,5 +231,4 @@ if {[string equal -nocase $read_location $short_location] || [string match -noca
 }
 
 
-putlog "BlackCountry 1.0 by BLaCkShaDoW Loaded."
-
+putlog "BlackCountry 1.1 by BLaCkShaDoW Loaded."
