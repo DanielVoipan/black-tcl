@@ -191,6 +191,7 @@ switch $blackcountry(banmask_type) {
 		}
 6 {
         return "*![lindex [split [maskhost $host] "!"] 1]"
+	     }
 	}
 }
 
