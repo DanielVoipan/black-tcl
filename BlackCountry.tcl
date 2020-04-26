@@ -37,6 +37,7 @@ set blackcountry(btime) "120"
 #3 - $user!$ident@$host
 #4 - $user!*@*
 #5 - *!$ident@*
+#6 - *!*@.host
 set blackcountry(banmask_type) "1"
 
 
@@ -188,6 +189,8 @@ switch $blackcountry(banmask_type) {
 5 {
 	return "*!$ident@*"
 		}
+6 {
+        return "*![lindex [split [maskhost $host] "!"] 1]"
 	}
 }
 
